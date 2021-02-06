@@ -1,0 +1,14 @@
+{
+    "id":"expandedstationdialogue",
+    "name":"Expanded Station Dialogue",
+    "author":"Niko",
+    "version":"0.0.0 dev",
+    "description":"Expands station Dialogue, rendering parts of the comm channel actually useful.",
+    "gameVersion":"0.9.1a",
+    "totalConversion":false,
+ #   "jars":["jars/ExerelinCore.jar"],
+ #  "modPlugin":"exerelin.plugins.ExerelinModPlugin",
+	"ruleCommandPackages":[
+			"data.campaign.ruleCMD",
+	],
+}
