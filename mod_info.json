@@ -6,9 +6,9 @@
     "description":"Expands station Dialogue, rendering parts of the comm channel actually useful.",
     "gameVersion":"0.9.1a",
     "totalConversion":false,
- #   "jars":["jars/ExerelinCore.jar"],
+	"jars":["jars/StationDialogueExpanded.jar"],
  #  "modPlugin":"exerelin.plugins.ExerelinModPlugin",
-	"ruleCommandPackages":[
-			"data.campaign.ruleCMD",
+ 	"ruleCommandPackages":[
+			"jars.src.com.fs.starfarer.api.impl.campaign.rulecmd",
 	],
 }
