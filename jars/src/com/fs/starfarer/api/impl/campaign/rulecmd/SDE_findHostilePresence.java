@@ -57,7 +57,7 @@ public class SDE_findHostilePresence extends BaseCommandPlugin {
         if (!doesSystemHavePirateActivity && !isLuddicCellPresent)
             return false;
 
-        if (command.equals("hasPatherCells")) {
+        if (command.equals("hasPatherCells")) { //btw vanilla already has a variable for this
             return isLuddicCellPresent;
         }
 

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Vayra's Sector">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Vayra's Sector" />
+      <root url="jar://$PROJECT_DIR$/../Vayra's Sector/jars/VayraSector.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Vayra's Sector" />
+    </SOURCES>
+  </library>
+</component>

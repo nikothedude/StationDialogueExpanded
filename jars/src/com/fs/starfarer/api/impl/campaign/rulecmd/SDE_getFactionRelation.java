@@ -1,5 +1,6 @@
 package com.fs.starfarer.api.impl.campaign.rulecmd;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemKeys;
@@ -28,7 +29,7 @@ public class SDE_getFactionRelation extends BaseCommandPlugin {
         market = dialog.getInteractionTarget().getMarket();
         String getMarketFactionID = market.getFaction().getId();
         String getPersonFactionID = person.getFaction().getId();
-        float getPersonFactionRelToPlayer = person.getFaction().getRelToPlayer().getRel();
+  //      float getPersonFactionRelToPlayer = person.getFaction().getRelToPlayer().getRel();
         float getMarketFactionRelToPlayer = market.getFaction().getRelToPlayer().getRel();
 
         if (command.equals("getMarketFactionRep")) {
@@ -36,12 +37,10 @@ public class SDE_getFactionRelation extends BaseCommandPlugin {
             return true;
         }
 
-        if (command.equals("getPersonFactionRep")) {
+  /*      if (command.equals("getPersonFactionRep")) { //$personFaction.rel and relValue both do this
             memoryMap.get(MemKeys.PERSON_FACTION).set("$SDE_personFactionRep", getPersonFactionRelToPlayer, 0);
             return true;
-        }
-
-
+        } */
 
         return false;
     }
