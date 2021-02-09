@@ -37,7 +37,7 @@ public class SDE_checkMarketStates extends BaseCommandPlugin {
         if (command.equals("marketHasWaystation")) {
             return market.hasWaystation();
         }
-
+//market.core_disrupted_OrbitalStation/HeavyIndustry/OrbitalWorks
         if (command.equals("marketHasShipProduction")) {
             if (market.hasIndustry(TAG_HEAVYINDUSTRY)) {
                 memoryMap.get(MemKeys.MARKET).set("$SDE_marketShipQuality", market.getShipQualityFactor(), 0);

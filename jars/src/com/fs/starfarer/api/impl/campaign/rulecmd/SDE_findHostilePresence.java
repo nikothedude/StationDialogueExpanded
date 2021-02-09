@@ -14,6 +14,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathCellsIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
+import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 
 
 
@@ -53,14 +54,13 @@ public class SDE_findHostilePresence extends BaseCommandPlugin {
         PirateBaseIntel originTierPirate = new PirateBaseIntel(system, factionId, tier);
         PirateBaseTier getPirateBaseTier = originTierPirate.getTier();
 
-
         if (!doesSystemHavePirateActivity && !isLuddicCellPresent)
             return false;
 
         if (command.equals("hasPatherCells")) { //btw vanilla already has a variable for this
             return isLuddicCellPresent;
         }
-
+// mc:(conditionid) does this
         if (command.equals("hasPirateActivity")) {
             return doesSystemHavePirateActivity;
         }
