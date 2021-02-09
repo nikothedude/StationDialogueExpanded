@@ -26,7 +26,7 @@ SDE_getContactRelation neutral",,"The quartermaster's face adopts an oddly suspi
 The Quartermaster clearly does not trust you enough, or you do not have the sufficient authorization to learn more about this line of questioning. Further questions of this nature may result in their patience running thin and them developing a grudge, and/or them reporting your incessant probing to their parent faction, further reducing your reputation.",,
 imploreForSuppliesBaseFavorable_selected,DialogOptionSelected,"$option == imploreForSuppliesBase
 SDE_getContactRelation favorable
-SDE_determineStealableCommodities marketExploitableByInsider",,"$SDE_demandData $SDE_demandDataValue $faction",,
+SDE_determineStealableCommodities marketExploitableByInsider",,"$SDE_demandDeficit $SDE_commoditySurplus $SDE_demandDataValue $faction",,
 decRelationDebug_option,PopulateOptions,"$isPerson
 SDE_isColonyContact trade
 ",,,"2:decRelationDebug:decrease relation",
