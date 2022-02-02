@@ -12,7 +12,6 @@
     <orderEntry type="library" name="starsector-core" level="project" />
     <orderEntry type="library" name="LazyLib" level="project" />
     <orderEntry type="library" name="ExerelinCore" level="project" />
-    <orderEntry type="library" name="Vayra's Sector" level="project" />
-    <orderEntry type="library" name="IndEvo" level="project" />
+    <orderEntry type="library" name="MagicLib" level="project" />
   </component>
 </module>

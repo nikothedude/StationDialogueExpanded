@@ -2,11 +2,10 @@
   <library name="ExerelinCore">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../Nexerelin/jars/ExerelinCore.jar!/" />
-      <root url="file://$PROJECT_DIR$/../Nexerelin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../Nexerelin/jars/sources/ExerelinCore" />
+      <root url="jar://$PROJECT_DIR$/../Nexerelin/jars/src.zip!/sources/ExerelinCore" />
     </SOURCES>
   </library>
 </component>

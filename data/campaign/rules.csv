@@ -2,37 +2,14 @@ id,trigger,conditions,script,text,options,notes
 "#RULESET_NAME SDE",,,,,,
 ,,,,,,
 # QM Base,,,,,,
-qmTest,PickGreeting,"SDE_isColonyContact trade","ShowPersonVisual
-FireAll PopulateOptions","After a short wait, your connection request is accepted.
-
-""Hello, this is $local.name, $rank $post of $market. What can I do for you?""","1:recallQuarterMasterBase:Recall what you know about Quartermasters...
-
-40:imploreForSuppliesBase:Implore the Quartermaster on the cargo they are assigned to manage.
-
-2:decRelationDebug:decrease relation
-
-3:raiseRelationDebug:raise relation",
-recallQuartermasterBase_option,PopulateOptions,"$isPerson
-SDE_isColonyContact trade
-",,,"1:recallQuarterMasterBase:Recall what you know about Quartermasters...",
-recallQuarterMasterBase_selected,DialogOptionSelected,"$option == recallQuarterMasterBase",,"placeholder text",,
-imploreForSuppliesBase_option,PopulateOptions,"$isPerson
-SDE_isColonyContact trade",,,"40:imploreForSuppliesBase:Implore the Quartermaster on the cargo they are assigned to manage.",
-imploreForSuppliesBase_selected,DialogOptionSelected,"$option == imploreForSuppliesBase
-SDE_getContactRelation neutral",,"The quartermaster's face adopts an oddly suspicious expression, shortly before they grow visibly annoyed and stare directly at you.
-
-""Are you trying to get me to give /you/ supplies? I barely even know you-and you're not even on the manifest."" They tap a clipboard beside them as if to make a point. They sigh before continuing. ""Please don't ask again. You won't get anymore answers.""
-
-The Quartermaster clearly does not trust you enough, or you do not have the sufficient authorization to learn more about this line of questioning. Further questions of this nature may result in their patience running thin and them developing a grudge, and/or them reporting your incessant probing to their parent faction, further reducing your reputation.",,
-imploreForSuppliesBaseFavorable_selected,DialogOptionSelected,"$option == imploreForSuppliesBase
-SDE_getContactRelation favorable
-SDE_determineStealableCommodities marketExploitableByInsider",,"$SDE_demandDeficit $SDE_commoditySurplus $SDE_demandDataValue $faction",,
-decRelationDebug_option,PopulateOptions,"$isPerson
-SDE_isColonyContact trade
-",,,"2:decRelationDebug:decrease relation",
-decRelationDebug_selected,DialogOptionSelected,"$option == decRelationDebug","SDE_repDecreaseDebug lower","there it goes",,
-raiseRelationDebug_option,PopulateOptions,"$isPerson
-SDE_isColonyContact trade",,,"3:raiseRelationDebug:raise relations",
-raiseRelationDebug_selected,DialogOptionSelected,"$option == raiseRelationDebug","SDE_repDecreaseDebug raise","there it goes",,
 "#END QM Base",,,,,,
+,,,,,,
+# Portmaster Base,,,,,,
+recallPortmasterBase_option,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == hegemony
+",,,"1:recallPortmasterBaseHegemony:Recall what you know about Hegemonic Portmasters...",
+recallPortmasterBase_selected,DialogOptionSelected,"$option == recallPortmasterBaseHegemony",,"placeholder",,
+blahj,,,,,,
+"#END Portmaster Base",,,,,,
 

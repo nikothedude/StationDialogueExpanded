@@ -1,14 +1,12 @@
 {
-    "id":"expandedstationdialogue",
-    "name":"Expanded Station Dialogue",
-    "author":"Niko",
-    "version":"0.0.0 dev",
-    "description":"Expands station Dialogue, rendering parts of the comm channel actually useful.",
-    "gameVersion":"0.9.1a",
-    "totalConversion":false,
-	"jars":["jars/StationDialogueExpanded.jar"],
- #  "modPlugin":"exerelin.plugins.ExerelinModPlugin",
- 	"ruleCommandPackages":[
-			"jars.src.com.fs.starfarer.api.impl.campaign.rulecmd",
-	],
+  "id": "expandedstationdialogue",
+  "name": "Expanded Station Dialogue",
+  "author": "Niko",
+  "version": "0.0.0 dev",
+  "description": "Expands station Dialogue, rendering parts of the comm channel actually useful.",
+  "gameVersion": "0.95.1a-RC3",
+  "totalConversion": false,
+  "jars": [
+    "jars/nikoSDO_SDOmodPlugin.jar"
+  ]
 }

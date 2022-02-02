@@ -1,0 +1,5 @@
+{
+	"ruleCommandPackages": [
+    "jars.src.com.fs.starfarer.api.impl.campaign.rulecmd"
+  ]
+}
