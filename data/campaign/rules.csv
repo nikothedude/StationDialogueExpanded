@@ -1,15 +1,108 @@
 id,trigger,conditions,script,text,options,notes
 "#RULESET_NAME SDE",,,,,,
 ,,,,,,
-# QM Base,,,,,,
-"#END QM Base",,,,,,
-,,,,,,
-# Portmaster Base,,,,,,
-recallPortmasterBase_option,PopulateOptions,"$isPerson
+# Help,,,,,,
+SDE_dialogueHelpNotVanilla,PopulateOptions,"$isPerson
+!SDE_isVanillaFaction score:100
+SDE_isColonyContact any",,,,"come back to this later, make this allow for mod settings to override"
+SDE_dialogueHelpPortmasterLC,PopulateOptions,"$isPerson
 $postId == portmaster
-$personFaction.id == hegemony
-",,,"1:recallPortmasterBaseHegemony:Recall what you know about Hegemonic Portmasters...",
-recallPortmasterBase_selected,DialogOptionSelected,"$option == recallPortmasterBaseHegemony",,"placeholder",,
-blahj,,,,,,
-"#END Portmaster Base",,,,,,
+$personFaction.id == luddic_church",,,"10:SDE_portmaster_help_LC:Recall what you know about Luddic Church portmasters...",
+SDE_dialogueHelpPortmasterTT,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == tritachyon",,,"10:SDE_portmaster_help_TT:Recall what you know about Tri-Tachyon portmasters...",
+SDE_dialogueHelpPortmasterHege,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == hegemony",,,"10:SDE_portmaster_help_Hege:Recall what you know about Hegemony portmasters...",
+SDE_dialogueHelpPortmasterSD,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == sindrian_diktat",,,"10:SDE_portmaster_help_SD:Recall what you know about Sindrian Diktat portmasters...",
+SDE_dialogueHelpPortmasterPL,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == persean",,,"10:SDE_portmaster_help_PL:Recall what you know about Persian League portmasters...",
+SDE_dialogueHelpPortmasterIndies,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == independent",,,"10:SDE_portmaster_help_Indies:Recall what you know about Independant portmasters...",
+SDE_dialogueHelpPortmasterPirates,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == pirates",,,"10:SDE_portmaster_help_Pirate:Recall what you know about Pirate portmasters...",
+SDE_dialogueHelpPortmasterLP,PopulateOptions,"$isPerson
+$postId == portmaster
+$personFaction.id == luddic_path",,,"10:SDE_portmaster_help_LP:Recall what you know about pather portmasters...",
+SDE_dialogueHelpPortmasterLCDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_LC",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Luddic Church portmasters are somewhat rigid, are mostly loyal to their cause. However, they are mostly loyal to their CAUSE, and not faction, and sometimes have a tendency to have ulterior motives. It's for this reason that they are considered somewhat ""malleable"".
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presences, and higher reputation with both themselves and their faction, although tri-tachyon portmasters will be swayed more easily by bribes and personal reputation.",,
+SDE_dialogueHelpPortmasterTTDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_TT",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Tri-tachyon portmasters are, like most tri-tachyon officials, well-known to be self-serving and corrupt, to their own ends, although less so than certain other factions. 
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presences, and higher reputation with both themselves and their faction, although tri-tachyon portmasters will be swayed more easily by bribes and personal reputation.",,
+SDE_dialogueHelpPortmasterHegeDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_Hege",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+SDE_dialogueHelpPortmasterSDDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_SD",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+SDE_dialogueHelpPortmasterPLDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_PL",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+SDE_dialogueHelpPortmasterIndiesDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_Indies",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+SDE_dialogueHelpPortmasterPiratesDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_Pirate",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+SDE_dialogueHelpPortmasterLPDialogue,DialogOptionSelected,"$option == SDE_portmaster_help_LP",,"Portmasters are officers in charge of monitoring and managing spaceport activity. They hold great weight over customs control, population flow, and everything that enters and exits.
+
+Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
+Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+"#END Help",,,,,,
+,,,,,,
+# Portmasters,,,,,,
+PortmasterBase,PopulateOptions,"$isPerson
+$postId == portmaster
+SDE_isVanillaFaction",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
+,,,,,,
+# Factions,,,,,,
+,,,,,,
+# Hegemony,,,,,,
+SDE_HegemonySoldierPortTalkDismissive,DialogOptionSelected,"$personFaction.id == hegemony
+$option == SDE_PortmasterPortStartHub
+$voice == soldier
+$rel >= -0.3
+$rel <= 0.5
+$personFaction.relValue >= -0.3
+$personFaction.RelValue <= 0.8
+
+",,"Their expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
+
+This person is acting _dismissive_ and _cold_ toward you, maintaining a demeanour of solid professionalism. Unless they're hiding something, it's unlikely they'll give you anything in this state.
+
+They finish speaking, take a short breath, then ask ""Is that all, citizen?"".","10:SDE_Chat:Chat them up
+11:SDE_Bribe:Offer a ""donation""
+12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)",
+,,,,,,
+# Blind Eye,,,,,,
+"#END Blind Eye",,,,,,
+,,,,,,
+# Bribe,,,,,,
+"#END Bribe",,,,,,
+"#END Hegemony",,,,,,
+"#END Factions",,,,,,
+"#END Portmasters",,,,,,
+,,,,,,
+# Base,,,,,,
+SDE_BribeWarning,DialogOptionSelected,"$option == SDE_Bribe",,"You open your mouth to speak, but hesitate. This is a **bribe**. If this goes wrong, it can go quite badly, including significant reputation loss scaling with current reputation, patrols being summoned, etc.
+
+Their reaction, if you continue, is highly dependant on many factors. Faction, personal reputation, faction reputation, condition of the market, condition of the system, the faction as a whole, your previous actions, and the list goes on and on.
+
+Different factions will have wildly different reactions to this. Different personalities will also react differently. For example, a business-driven tri-tachyon quartermaster will rarely blow the whistle, however a stoic and loyal hegemony portmaster may.","1:SDE_BribeContinue:Continue with your speech
+2:SDE_BribeExit:Close your mouth and awkwardly continue with your conversation",
+SDE_BribeExit,DialogOptionSelected,"$option == SDE_BribeExit",,"test",,
+"#END Base",,,,,,
 
