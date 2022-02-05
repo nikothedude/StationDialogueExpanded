@@ -1,19 +1,12 @@
 package com.fs.starfarer.api.impl.campaign.rulecmd;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignEventListener;
+import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import com.fs.starfarer.api.impl.campaign.CoreCampaignPluginImpl;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.campaign.econ.Submarket;
-import com.fs.starfarer.campaign.fleet.CampaignFleet;
-import com.fs.starfarer.settings.StarfarerSettings;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +36,6 @@ public class SDE_blindEyeClass extends BaseCommandPlugin {
             Global.getSector().getPlayerFleet().setTransponderOn(false);
             float transponderSetting = Global.getSettings().getFloat("transponderOffMarketAwarenessMult");
             if (transponderSetting != 0f) {
-                market.getMemory().set(TRANSPONDERSETTING, transponderSetting, 0);
                 Global.getSettings().setFloat("transponderOffMarketAwarenessMult", 0f);
             }
             Global.getSector().getListenerManager().addListener(market);
