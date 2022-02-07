@@ -64,16 +64,8 @@ Like most portmasters, they are likely able to give you more lenience with lower
 "#END Help",,,,,,
 ,,,,,,
 # Portmasters,,,,,,
-PortmasterBase,PopulateOptions,"$isPerson
-$postId == portmaster
-SDE_isVanillaFaction",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
-,,,,,,
-# Factions,,,,,,
-,,,,,,
-# Hegemony,,,,,,
 SDE_HegemonySoldierPortTalkDismissive,DialogOptionSelected,"$personFaction.id == hegemony
 $option == SDE_PortmasterPortStartHub
-$voice == soldier
 $rel >= -0.3
 $rel <= 0.5
 $personFaction.relValue >= -0.3
@@ -86,8 +78,17 @@ This person is acting _dismissive_ and _cold_ toward you, maintaining a demeanou
 They finish speaking, take a short breath, then ask ""Is that all, citizen?"".","10:SDE_Chat:Chat them up
 11:SDE_Bribe:Offer a ""donation""
 12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)",
+PortmasterBase,PopulateOptions,"$isPerson
+$postId == portmaster",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
+,,,,,,
+# Factions,,,,,,
+,,,,,,
+# Hegemony,,,,,,
 ,,,,,,
 # Blind Eye,,,,,,
+SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
+SDE_BlindEyeDebug,SDE_BlindEye,,"SDE_blindEyeClass","$userTransponder","100:defaultLeave:Leave
+0:cutCommLink:Cut the comm link",
 "#END Blind Eye",,,,,,
 ,,,,,,
 # Bribe,,,,,,
