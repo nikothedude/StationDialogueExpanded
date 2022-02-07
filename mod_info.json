@@ -1,6 +1,6 @@
 {
-  "id": "expandedstationdialogue",
-  "name": "Expanded Station Dialogue",
+  "id": "StationDialogueExpanded",
+  "name": "StationDialogueExpanded",
   "author": "Niko",
   "version": "0.0.0 dev",
   "description": "Expands station Dialogue, rendering parts of the comm channel actually useful.",

@@ -69,7 +69,7 @@ $option == SDE_PortmasterPortStartHub
 $rel >= -0.3
 $rel <= 0.5
 $personFaction.relValue >= -0.3
-$personFaction.RelValue <= 0.8
+$personFaction.relValue <= 0.8
 
 ",,"Their expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
 
@@ -84,15 +84,6 @@ $postId == portmaster",,,"7:SDE_PortmasterPortStartHub:Ask about their duties su
 # Factions,,,,,,
 ,,,,,,
 # Hegemony,,,,,,
-,,,,,,
-# Blind Eye,,,,,,
-SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
-SDE_BlindEyeDebug,SDE_BlindEye,,"SDE_blindEyeClass","$userTransponder","100:defaultLeave:Leave
-0:cutCommLink:Cut the comm link",
-"#END Blind Eye",,,,,,
-,,,,,,
-# Bribe,,,,,,
-"#END Bribe",,,,,,
 "#END Hegemony",,,,,,
 "#END Factions",,,,,,
 "#END Portmasters",,,,,,
@@ -104,6 +95,33 @@ Their reaction, if you continue, is highly dependant on many factors. Faction, p
 
 Different factions will have wildly different reactions to this. Different personalities will also react differently. For example, a business-driven tri-tachyon quartermaster will rarely blow the whistle, however a stoic and loyal hegemony portmaster may.","1:SDE_BribeContinue:Continue with your speech
 2:SDE_BribeExit:Close your mouth and awkwardly continue with your conversation",
-SDE_BribeExit,DialogOptionSelected,"$option == SDE_BribeExit",,"test",,
+SDE_BribeExit,DialogOptionSelected,"$option == SDE_BribeExit","FireAll PopulateOptions","The $postId gives you a stern look, before returning to other matters.",,
+SDE_BribeContinue,DialogOptionSelected,"$option == SDE_BribeContinue","FireBest SDE_Bribe
+SDE_calculateBribe",,,
+SDE_BribeSternNoSoldier,SDE_Bribe,"$voice == soldier
+$rel >= -0.3
+$rel <= 0.5
+$personFaction.relValue >= -0.3
+$personFaction.relValue <= 0.8
+$market.stability >= 8","AdjustRep $faction.id INHOSPITABLE -5
+AdjustRepActivePerson INHOSPITABLE -5","add a story point option maybe",,
+SDE_BribeHesitantYesSoldier,SDE_Bribe,"$voice == soldier
+$rel >= -0.3
+$rel <= 0.5
+$personFaction.relValue >= -0.3
+$personFaction.relValue <= 0.8
+$market.stability <= 7.0","SetTextHighlights $personBribeValueCredits","The official's face tenses for a moment, before giving a hard squint. ""...the... $personFaction could... accept some assistance, yes.""
+
+After a moment of hesitation, the officer opens their mouth to speak. ""$personBribeValueCredits credits. ""","1:SDE_BribeAccepted:Agree to the price, and generously donate $personBribeValueCredits credits to them
+2:SDE_BribeExit:Shake your head and decline",
+SDE_BribeAccepted,DialogOptionSelected,"$option == SDE_BribeAccepted","FireBest SDE_BribeAccepted",,,
+SDE_BribeAcceptedNormal,SDE_BribeAccepted,,"AddCredits -$personBribeValueCredits
+AdjustRepActivePerson FRIENDLY 15","You transfer the credits.","1:BribeCompleteNormal:Back",
+SDE_BribeCompleteNormal,DialogOptionSelected,"$option == BribeCompleteNormal","FireAll PopulateOptions",,,
+,,,,,,
+# Blind Eye,,,,,,
+SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
+SDE_BlindEyeDebug,SDE_BlindEye,,"SDE_blindEyeClass","$userTransponder","0:cutCommLink:Cut the comm link",
+"#END Blind Eye",,,,,,
 "#END Base",,,,,,
 
