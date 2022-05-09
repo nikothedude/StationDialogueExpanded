@@ -18,7 +18,7 @@ public class SDE_ColonyInteractionListener extends BaseCampaignEventListener {
         super(permaRegister);
     }
 
-    @Override
+/*    @Override
     public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {
         MarketAPI market = transaction.getMarket();
         MemoryAPI memory = market.getMemoryWithoutUpdate();
@@ -30,6 +30,30 @@ public class SDE_ColonyInteractionListener extends BaseCampaignEventListener {
                     PlayerTradeDataForSubmarket blackmarket_data = new PlayerTradeDataForSubmarket(blackmarket);
                     blackmarket_data.setTotalPlayerTradeValue(0f); //TODO: dont make this wipe suspicion, save the old suspicion
                 }
+            }
+        }
+    } */
+
+    @Override
+    public void reportPlayerClosedMarket(MarketAPI market) {
+        MemoryAPI memory = market.getMemoryWithoutUpdate();
+        MemoryAPI globalmemory = Global.getSector().getMemoryWithoutUpdate();
+
+        if (memory.getBoolean("$marketSuspicionBlocked")) {
+
+            if (globalmemory.getFloat("$userTransponderSetting") != 0f) { //if the original setting wasnt 0, reset
+                float userSetting = Float.parseFloat("$userTransponderSetting");
+                Global.getSettings().setFloat("transponderOffMarketAwarenessMult", userSetting);
+            }
+            if (Global.getSector().getPlayerFleet().isTransponderOn()) {
+                Global.getSector().getCampaignUI().addMessage("Transponder on after suspicionblockedmarket exited, this shouldnt happen - SDE");
+            }
+            if (globalmemory.getBoolean("$userTransponder")) {
+                Global.getSector().getPlayerFleet().setTransponderOn(true);
+            }
+            else if (!globalmemory.getBoolean("$userTransponder")) {
+                Global.getSector().getCampaignUI().addMessage("$userTransponder was FALSE. why.");
+                Global.getSector().getPlayerFleet().setTransponderOn(false);
             }
         }
     }

@@ -12,9 +12,9 @@ import java.util.Map;
 
 import static com.fs.starfarer.api.characters.SDE_personVariables.personVoiceMult;
 
-public class SDE_calculateBribe extends BaseCommandPlugin{ //todo: use different calculation for non-bribe
+public class SDE_calculateBlindEyeCost extends BaseCommandPlugin{
 
-    private static final String BRIBE_VALUE_CREDITS = "$bribeValueCredits";
+    private static final String BLIND_EYE_VALUE_CREDITS = "$blindEyeValueCredits";
 
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
@@ -26,18 +26,34 @@ public class SDE_calculateBribe extends BaseCommandPlugin{ //todo: use different
         PersonAPI person = dialog.getInteractionTarget().getActivePerson();
 
         MemoryAPI memory = memoryMap.get(MemKeys.LOCAL);
-        memory.set("$personBribeValueCredits", calculateBribe(market, person), 0);
+        memory.set(BLIND_EYE_VALUE_CREDITS, calculateBlindEyeCostCredits(market, person), 0);
 
         return true;
     }
-    //TODO: break up method into multiple components, calculatePersonalityComponent, calculateFactionComponent, etc
-    public static int calculateBribe(MarketAPI market, PersonAPI person){
-        int bribeBase = 1000;
+
+    public static int calculateBlindEyeCostCredits(MarketAPI market, PersonAPI person) { //TODO: consider requesting some cargo or smthn
+
+        MemoryAPI marketmem = market.getMemoryWithoutUpdate();
+
+        int bribeBase = 500;
         int bribeValue;
+
         float personalityBribeMult = personVoiceMult(person);
         float marketStabilityMult = 1*(market.getStabilityValue());
         int marketSizeMult = 2*(market.getSize());
-        bribeValue = (int) (bribeBase * (marketStabilityMult + marketSizeMult + personalityBribeMult));
+        float marketPreviousBlockMult;
+        float marketPreviousBlockFloat = marketmem.getFloat("$marketSuspicionRecentlyBlocked");
+        if (marketPreviousBlockFloat == 0) {
+            marketPreviousBlockMult = 1;
+        }
+        else {
+            marketPreviousBlockMult = ( marketPreviousBlockFloat + 0.2f );
+        }
+
+        bribeValue = (int) ((bribeBase * (marketStabilityMult + marketSizeMult + personalityBribeMult)) * marketPreviousBlockMult);
+
         return bribeValue;
+
     }
+
 }

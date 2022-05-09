@@ -2,6 +2,8 @@ id,trigger,conditions,script,text,options,notes
 "#RULESET_NAME SDE",,,,,,
 ,,,,,,
 # Help,,,,,,
+,,,,,,
+# Portmasters.,,,,,,
 SDE_dialogueHelpNotVanilla,PopulateOptions,"$isPerson
 !SDE_isVanillaFaction score:100
 SDE_isColonyContact any",,,,"come back to this later, make this allow for mod settings to override"
@@ -61,53 +63,89 @@ SDE_dialogueHelpPortmasterLPDialogue,DialogOptionSelected,"$option == SDE_portma
 
 Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willing to bend the rules to you.
 Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
+"#END Portmasters.",,,,,,
 "#END Help",,,,,,
 ,,,,,,
-# Base,,,,,,
-PortmasterBase,PopulateOptions,"$isPerson
-$postId == portmaster",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
+# Actions,,,,,,
 SDE_backGeneric,DialogOptionSelected,"$option == SDE_backGeneric","FireAll PopulateOptions",,,
 ,,,,,,
-# Blind Eye(PORT),,,,,,
+# Base.,,,,,,
+,,,,,,
+# Portmasters..,,,,,,
+SDE_PortmasterBase,PopulateOptions,"$isPerson
+$postId == portmaster",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
+SDE_SoldierPortTalkDismissive,SDE_PMInquiryResponse,"$isPerson
+
+",,"$hisOrHer expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
+
+$personName is acting dismissive and cold toward you, maintaining a demeanour of solid professionalism. Unless they're hiding something, it's unlikely they'll give you anything in this state.
+
+They finish speaking, take a short breath, then ask ""Is that all, citizen?"".",,"Dialogue rule"
+SDE_PMInquirySelect,DialogOptionSelected,"$option == SDE_PortmasterPortStartHub","FireBest SDE_PMInquiry",,,"When option is selected, check conditions to see response"
+SDE_PMInquirySuccess,SDE_PMInquiry,"$isPerson score:10","FireBest SDE_PMInquiryResponse
+FireBest SDE_BlindEyeCheck",,"10:SDE_Chat:Chat them up
+11:SDE_Bribe:Offer a ""donation""
+12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)","The person is receptive to the question, so run their response and add dialogue options"
+SDE_PMInquiryFailure,SDE_PMInquiry,"$personFaction.isHostile score:100","FireBest SDE_PMInquiryFailureResponse",,,"Placeholder condition"
+SDE_PMInquiryFailureResponseGeneric,SDE_PMInquiryFailureResponse,,,"No. Lol. Lmao.","0:cutCommLink:Cut the comm link",
+"#END Portmasters..",,,,,,
+"#END Base.",,,,,,
+,,,,,,
+# Blind Eye (PORTMASTER),,,,,,
 SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
+SDE_BlindEyeCheckNoBM,SDE_BlindEyeCheck,"!SDE_hasSubmarket black_market score:1000","SetEnabled SDE_BlindEye false
+SetTooltip SDE_BlindEye ""This market has no black market. There is nothing to block suspicion with.""",,,
+SDE_BlindEyeCheckTransponderOff,SDE_BlindEyeCheck,"!$player.transponderOn score:100","SetEnabled SDE_BlindEye false
+SetTooltip SDE_BlindEye ""Your transponder is off. There would be no point to trying to reduce suspicion.""",,,
+SDE_BlindEyeCalc,SDE_BlindEyeCalc,,"SDE_calculateBlindEyeCost
+FireBest SDE_BlindEyeSuccess",,,"TODO: split this up intot different ones with different prices"
+SDE_BlindEyeGenericSuccess,SDE_BlindEye,"$isPerson","FireBest SDE_BlindEyeCalc",,,
 ,,,,,,
-# spacer,,,,,,
-"#END spacer",,,,,,
+# Personalities.,,,,,,
 ,,,,,,
-# faithful,,,,,,
-"#END faithful",,,,,,
+# spacer.,,,,,,
+"#END spacer.",,,,,,
 ,,,,,,
-# pather,,,,,,
-"#END pather",,,,,,
+# faithful.,,,,,,
+"#END faithful.",,,,,,
 ,,,,,,
-# business,,,,,,
-"#END business",,,,,,
+# pather.,,,,,,
+"#END pather.",,,,,,
 ,,,,,,
-# official,,,,,,
-"#END official",,,,,,
+# business.,,,,,,
+"#END business.",,,,,,
 ,,,,,,
-# soldier,,,,,,
-SDE_BlindEyeSoldierNeutralNo,SDE_BlindEye,,"AdjustRep $faction.id INHOSPITABLE -5
+# official.,,,,,,
+"#END official.",,,,,,
+,,,,,,
+# soldier.,,,,,,
+SDE_BlindEyeSoldierNeutralNo,SDE_BlindEyePLACEHOLDER,,"AdjustRep $faction.id INHOSPITABLE -5
 AdjustRepActivePerson INHOSPITABLE -5","$personName lowers their brow. ""No.""
 
 It seems you won't get much out of them like this.","1:SDE_backGeneric:Back",
-SDE_BlindEyeSoldierNeutralYesLowStab,SDE_BlindEye,,"SDE_calculateBribe
-","$personBribeValueCredits","1:SDE_BlindEyeSoldierPay:Agree and pay the specified price
-2:SDE_BribeExit:Shake your head and say no",
-SDE_BlindEyeSoldierPay,DialogOptionSelected,"$option == SDE_BlindEyeSoldierPay","FireBest SDE_BlindEyeSoldierPaid",,,
-SDE_BlindEyeSoldierPaidNormalLowStab,SDE_BlindEyeSoldierPaid,,"AddCredits -$personBribeValueCredits
+,,,,,,
+# After Pay Attempt,,,,,,
+SDE_BlindEyeSoldierPay,DialogOptionSelected,"$option == SDE_BlindEyePay","FireBest SDE_BlindEyePaid",,,
+SDE_BlindEyeSoldierPaidNormalLowStab,SDE_BlindEyePaid,,"AddCredits -$blindEyeValueCredits
 SDE_blindEyeClass","the guy sighs blah blah","1:SDE_backGeneric:Back",
-"#END soldier",,,,,,
+SDE_BlindEyeDisplayCredits,SDE_BlindEyePropositionCredits,"$isPerson","DoCanAffordCheck $blindEyeValueCredits SDE_BlindEyePay true
+FireBest BlindEyePreviousEffect","$blindEyeValueCredits","1:SDE_BlindEyePay:Agree and pay the specified price
+2:SDE_BribeExit:Shake your head and say no",
+SDE_BlindEyeCreditsProposition,SDE_BlindEyeSuccess,"$isPerson","FireBest SDE_BlindEyePropositionCredits",,,
+SDE_BlindEyePreviousEffectText,BlindEyePreviousEffect,"$market.marketSuspicionRecentlyBlocked > 0",,"Due to your recent pressuring towards the authorities to turn a blind eye to your activities, further actions may require more credits, along other problems.",,
+"#END After Pay Attempt",,,,,,
+"#END soldier.",,,,,,
 ,,,,,,
-# scientist,,,,,,
-"#END scientist",,,,,,
+# scientist.,,,,,,
+"#END scientist.",,,,,,
 ,,,,,,
-# villain,,,,,,
-"#END villain",,,,,,
+# villain.,,,,,,
+"#END villain.",,,,,,
 ,,,,,,
-# aristo,,,,,,
-"#END aristo",,,,,,
-"#END Blind Eye(PORT)",,,,,,
+# aristo.,,,,,,
+"#END aristo.",,,,,,
+"#END Personalities.",,,,,,
+"#END Blind Eye (PORTMASTER)",,,,,,
 ,,,,,,
 # Bribe,,,,,,
 SDE_BribeWarning,DialogOptionSelected,"$option == SDE_Bribe",,"You open your mouth to speak, but hesitate. This is a **bribe**. If this goes wrong, it can go quite badly, including significant reputation loss scaling with current reputation, patrols being summoned, etc.
@@ -124,31 +162,6 @@ SDE_BribeAcceptedNormal,SDE_BribeAccepted,,"AddCredits -$personBribeValueCredits
 AdjustRepActivePerson FRIENDLY 15","You transfer the credits.","1:BribeCompleteNormal:Back",
 SDE_BribeCompleteNormal,DialogOptionSelected,"$option == BribeCompleteNormal","FireAll PopulateOptions",,,
 ,,,,,,
-# Portmasters,,,,,,
-SDE_SoldierPortTalkDismissive,DialogOptionSelected,"$option == SDE_PortmasterPortStartHub
-
-
-",,"$hisOrHer expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
-
-$personName is acting _dismissive_ and _cold_ toward you, maintaining a demeanour of solid professionalism. Unless they're hiding something, it's unlikely they'll give you anything in this state.
-
-They finish speaking, take a short breath, then ask ""Is that all, citizen?"".","10:SDE_Chat:Chat them up
-11:SDE_Bribe:Offer a ""donation""
-12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)",
-"#END Portmasters",,,,,,
-,,,,,,
-# Quartermasters,,,,,,
-"#END Quartermasters",,,,,,
-,,,,,,
-# Station Commanders,,,,,,
-"#END Station Commanders",,,,,,
-,,,,,,
-# Base Commanders,,,,,,
-"#END Base Commanders",,,,,,
-,,,,,,
-# Administrators,,,,,,
-"#END Administrators",,,,,,
-,,,,,,
 # Soldier,,,,,,
 SDE_BribeSternNoSoldierHighStab,SDE_Bribe,"$rel >= -0.3
 $rel <= 0.5
@@ -162,7 +175,8 @@ SDE_BribeHesitantYesSoldierModerateStab,SDE_Bribe,"$rel >= -0.3
 $rel <= 0.5
 $personFaction.relValue >= -0.3
 $personFaction.relValue <= 0.8
-$market.stability <= 7.0","SetTextHighlights $personBribeValueCredits","The official's face tenses for a moment, before giving a hard squint. ""...the... $personFaction could... accept some assistance, yes."" $heOrShe sighs. ""With... how unstable this place is...""
+$market.stability <= 7.0","SetTextHighlights $personBribeValueCredits
+DoCanAffordCheck $personBribeValueCredits SDE_BribeAccepted true","The official's face tenses for a moment, before giving a hard squint. ""...the... $personFaction could... accept some assistance, yes."" $heOrShe sighs. ""With... how unstable this place is...""
 
 After a moment of hesitation, the officer opens their mouth to speak. ""$personBribeValueCredits credits. ""","1:SDE_BribeAccepted:Agree to the price, and generously donate $personBribeValueCredits credits to them
 2:SDE_BribeExit:Shake your head and decline","buggy, $personBribeValueCredits has no value for some reason"
@@ -186,5 +200,5 @@ After a moment of hesitation, the officer opens their mouth to speak. ""$personB
 # Aristo,,,,,,
 "#END Aristo",,,,,,
 "#END Bribe",,,,,,
-"#END Base",,,,,,
+"#END Actions",,,,,,
 
