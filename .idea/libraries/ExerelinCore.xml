@@ -5,7 +5,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../Nexerelin/jars/src.zip!/sources/ExerelinCore" />
+      <root url="file://$PROJECT_DIR$/../Nexerelin/jars/sources/ExerelinCore" />
     </SOURCES>
   </library>
 </component>

@@ -28,7 +28,7 @@ public class SDE_calculateBribe extends BaseCommandPlugin{
 
         return true;
     }
-
+    //TODO: break up method into multiple components, calculatePersonalityComponent, calculateFactionComponent, etc
     public static int calculateBribe(MarketAPI market, PersonAPI person){
         int bribeBase = 1000;
         int bribeValue;
@@ -36,7 +36,7 @@ public class SDE_calculateBribe extends BaseCommandPlugin{
         float marketStabilityMult = 1*(market.getStabilityValue());
         int marketSizeMult = 2*(market.getSize());
         switch(person.getVoice()) {
-            case "soldier":
+            case "soldier": //TODO: arbitrary values for now
                 personalityBribeMult = 1.5f;
                 break;
             case "spacer":

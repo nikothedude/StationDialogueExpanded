@@ -63,32 +63,53 @@ Hegemony portmasters are fairly rigid, and it's quite rare you'll find one willi
 Like most portmasters, they are likely able to give you more lenience with lower stability, military presence, and higher reputation with both themselves and their faction.",,
 "#END Help",,,,,,
 ,,,,,,
-# Portmasters,,,,,,
-SDE_HegemonySoldierPortTalkDismissive,DialogOptionSelected,"$personFaction.id == hegemony
-$option == SDE_PortmasterPortStartHub
-$rel >= -0.3
-$rel <= 0.5
-$personFaction.relValue >= -0.3
-$personFaction.relValue <= 0.8
-
-",,"Their expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
-
-This person is acting _dismissive_ and _cold_ toward you, maintaining a demeanour of solid professionalism. Unless they're hiding something, it's unlikely they'll give you anything in this state.
-
-They finish speaking, take a short breath, then ask ""Is that all, citizen?"".","10:SDE_Chat:Chat them up
-11:SDE_Bribe:Offer a ""donation""
-12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)",
+# Base,,,,,,
 PortmasterBase,PopulateOptions,"$isPerson
 $postId == portmaster",,,"7:SDE_PortmasterPortStartHub:Ask about their duties surrounding the spaceport.",
+SDE_backGeneric,DialogOptionSelected,"$option == SDE_backGeneric","FireAll PopulateOptions",,,
 ,,,,,,
-# Factions,,,,,,
+# Blind Eye(PORT),,,,,,
+SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
 ,,,,,,
-# Hegemony,,,,,,
-"#END Hegemony",,,,,,
-"#END Factions",,,,,,
-"#END Portmasters",,,,,,
+# spacer,,,,,,
+"#END spacer",,,,,,
 ,,,,,,
-# Base,,,,,,
+# faithful,,,,,,
+"#END faithful",,,,,,
+,,,,,,
+# pather,,,,,,
+"#END pather",,,,,,
+,,,,,,
+# business,,,,,,
+"#END business",,,,,,
+,,,,,,
+# official,,,,,,
+"#END official",,,,,,
+,,,,,,
+# soldier,,,,,,
+SDE_BlindEyeSoldierNeutralNo,SDE_BlindEye,,"AdjustRep $faction.id INHOSPITABLE -5
+AdjustRepActivePerson INHOSPITABLE -5","$personName lowers their brow. ""No.""
+
+It seems you won't get much out of them like this.","1:SDE_backGeneric:Back",
+SDE_BlindEyeSoldierNeutralYesLowStab,SDE_BlindEye,,"SDE_calculateBribe
+","$personBribeValueCredits","1:SDE_BlindEyeSoldierPay:Agree and pay the specified price
+2:SDE_BribeExit:Shake your head and say no",
+SDE_BlindEyeSoldierPay,DialogOptionSelected,"$option == SDE_BlindEyeSoldierPay","FireBest SDE_BlindEyeSoldierPaid",,,
+SDE_BlindEyeSoldierPaidNormalLowStab,SDE_BlindEyeSoldierPaid,,"AddCredits -$personBribeValueCredits
+SDE_blindEyeClass","the guy sighs blah blah","1:SDE_backGeneric:Back",
+"#END soldier",,,,,,
+,,,,,,
+# scientist,,,,,,
+"#END scientist",,,,,,
+,,,,,,
+# villain,,,,,,
+"#END villain",,,,,,
+,,,,,,
+# aristo,,,,,,
+"#END aristo",,,,,,
+"#END Blind Eye(PORT)",,,,,,
+,,,,,,
+# Bribe,,,,,,
 SDE_BribeWarning,DialogOptionSelected,"$option == SDE_Bribe",,"You open your mouth to speak, but hesitate. This is a **bribe**. If this goes wrong, it can go quite badly, including significant reputation loss scaling with current reputation, patrols being summoned, etc.
 
 Their reaction, if you continue, is highly dependant on many factors. Faction, personal reputation, faction reputation, condition of the market, condition of the system, the faction as a whole, your previous actions, and the list goes on and on.
@@ -98,30 +119,72 @@ Different factions will have wildly different reactions to this. Different perso
 SDE_BribeExit,DialogOptionSelected,"$option == SDE_BribeExit","FireAll PopulateOptions","The $postId gives you a stern look, before returning to other matters.",,
 SDE_BribeContinue,DialogOptionSelected,"$option == SDE_BribeContinue","FireBest SDE_Bribe
 SDE_calculateBribe",,,
-SDE_BribeSternNoSoldier,SDE_Bribe,"$voice == soldier
-$rel >= -0.3
-$rel <= 0.5
-$personFaction.relValue >= -0.3
-$personFaction.relValue <= 0.8
-$market.stability >= 8","AdjustRep $faction.id INHOSPITABLE -5
-AdjustRepActivePerson INHOSPITABLE -5","add a story point option maybe",,
-SDE_BribeHesitantYesSoldier,SDE_Bribe,"$voice == soldier
-$rel >= -0.3
-$rel <= 0.5
-$personFaction.relValue >= -0.3
-$personFaction.relValue <= 0.8
-$market.stability <= 7.0","SetTextHighlights $personBribeValueCredits","The official's face tenses for a moment, before giving a hard squint. ""...the... $personFaction could... accept some assistance, yes.""
-
-After a moment of hesitation, the officer opens their mouth to speak. ""$personBribeValueCredits credits. ""","1:SDE_BribeAccepted:Agree to the price, and generously donate $personBribeValueCredits credits to them
-2:SDE_BribeExit:Shake your head and decline",
 SDE_BribeAccepted,DialogOptionSelected,"$option == SDE_BribeAccepted","FireBest SDE_BribeAccepted",,,
 SDE_BribeAcceptedNormal,SDE_BribeAccepted,,"AddCredits -$personBribeValueCredits
 AdjustRepActivePerson FRIENDLY 15","You transfer the credits.","1:BribeCompleteNormal:Back",
 SDE_BribeCompleteNormal,DialogOptionSelected,"$option == BribeCompleteNormal","FireAll PopulateOptions",,,
 ,,,,,,
-# Blind Eye,,,,,,
-SDE_BlindEyeBase,DialogOptionSelected,"$option == SDE_BlindEye","FireBest SDE_BlindEye",,,
-SDE_BlindEyeDebug,SDE_BlindEye,,"SDE_blindEyeClass","$userTransponder","0:cutCommLink:Cut the comm link",
-"#END Blind Eye",,,,,,
+# Portmasters,,,,,,
+SDE_SoldierPortTalkDismissive,DialogOptionSelected,"$option == SDE_PortmasterPortStartHub
+
+
+",,"$hisOrHer expression remains as still as a rock. ""I don't see how that's your concern, citizen."", they mutter. ""If you're interested in learning, please open a channel to a logistics assistant, then ask for a holo..."" you tune them out as you think.
+
+$personName is acting _dismissive_ and _cold_ toward you, maintaining a demeanour of solid professionalism. Unless they're hiding something, it's unlikely they'll give you anything in this state.
+
+They finish speaking, take a short breath, then ask ""Is that all, citizen?"".","10:SDE_Chat:Chat them up
+11:SDE_Bribe:Offer a ""donation""
+12:SDE_BlindEye:Inquire into their duties further, specifically, customs (Try to prevent black market suspicion)",
+"#END Portmasters",,,,,,
+,,,,,,
+# Quartermasters,,,,,,
+"#END Quartermasters",,,,,,
+,,,,,,
+# Station Commanders,,,,,,
+"#END Station Commanders",,,,,,
+,,,,,,
+# Base Commanders,,,,,,
+"#END Base Commanders",,,,,,
+,,,,,,
+# Administrators,,,,,,
+"#END Administrators",,,,,,
+,,,,,,
+# Soldier,,,,,,
+SDE_BribeSternNoSoldierHighStab,SDE_Bribe,"$rel >= -0.3
+$rel <= 0.5
+$personFaction.relValue >= -0.3
+$personFaction.relValue <= 0.8
+$market.stability >= 8","AdjustRep $faction.id INHOSPITABLE -5
+AdjustRepActivePerson INHOSPITABLE -5","$personName lowers their brow. ""No.""
+
+It seems you won't get much out of them like this.","1:SDE_backGeneric:Back",
+SDE_BribeHesitantYesSoldierModerateStab,SDE_Bribe,"$rel >= -0.3
+$rel <= 0.5
+$personFaction.relValue >= -0.3
+$personFaction.relValue <= 0.8
+$market.stability <= 7.0","SetTextHighlights $personBribeValueCredits","The official's face tenses for a moment, before giving a hard squint. ""...the... $personFaction could... accept some assistance, yes."" $heOrShe sighs. ""With... how unstable this place is...""
+
+After a moment of hesitation, the officer opens their mouth to speak. ""$personBribeValueCredits credits. ""","1:SDE_BribeAccepted:Agree to the price, and generously donate $personBribeValueCredits credits to them
+2:SDE_BribeExit:Shake your head and decline","buggy, $personBribeValueCredits has no value for some reason"
+"#END Soldier",,,,,,
+,,,,,,
+# Faithful,,,,,,
+"#END Faithful",,,,,,
+,,,,,,
+# Business,,,,,,
+"#END Business",,,,,,
+,,,,,,
+# Official,,,,,,
+"#END Official",,,,,,
+,,,,,,
+# Scientist,,,,,,
+"#END Scientist",,,,,,
+,,,,,,
+# Villain,,,,,,
+"#END Villain",,,,,,
+,,,,,,
+# Aristo,,,,,,
+"#END Aristo",,,,,,
+"#END Bribe",,,,,,
 "#END Base",,,,,,
 

@@ -7,6 +7,7 @@
   "gameVersion": "0.95.1a-RC6",
   "totalConversion": false,
   "jars": [
-    "jars/StationDialogueExpanded.jar"
-  ]
+    "jars/StationDialogueExpanded.jar",
+  ],
+  "modPlugin": "data.scripts.plugins.SDE_modPlugin",
 }
